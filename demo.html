@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larry 探针 · 界面预览 Demo</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel2: #1c2230;
+    --border: #2a3340;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --red: #f85149;
+    --amber: #d29922;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+  }
+  header h1 { margin: 0; font-size: 20px; font-weight: 600; }
+  header .logo {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: #0d1117; font-weight: 800; font-size: 16px;
+  }
+  header .meta { color: var(--muted); font-size: 13px; margin-left: auto; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; background: var(--panel2); color: var(--muted); }
+  main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+  section { margin-bottom: 32px; }
+  section h2 { font-size: 15px; font-weight: 600; color: var(--muted); margin: 0 0 12px; text-transform: uppercase; letter-spacing: .5px; }
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; background: var(--panel2); position: sticky; top: 0; }
+  tr:last-child td { border-bottom: none; }
+  tr.offline td { opacity: .5; }
+  .bar { position: relative; height: 6px; width: 60px; background: var(--border); border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; }
+  .bar > i { display: block; height: 100%; background: var(--green); border-radius: 3px; }
+  .bar.warn > i { background: var(--amber); }
+  .bar.crit > i { background: var(--red); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; vertical-align: middle; }
+  .dot.off { background: var(--red); }
+  /* mesh heatmap */
+  .mesh-wrap { overflow-x: auto; }
+  table.mesh { border-collapse: separate; border-spacing: 2px; }
+  table.mesh th, table.mesh td { padding: 0; text-align: center; }
+  table.mesh .cell {
+    width: 64px; height: 32px; line-height: 32px; font-size: 12px; font-weight: 500; border-radius: 6px;
+    background: var(--panel2); color: var(--text);
+  }
+  table.mesh .self { background: var(--border); color: var(--muted); }
+  table.mesh .na { background: var(--panel2); color: var(--muted); }
+  table.mesh .lbl { color: var(--muted); font-size: 12px; height: 32px; line-height: 32px; padding: 0 10px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px; border-top: 1px solid var(--border); }
+  a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">L</div>
+  <h1>Larry 探针</h1>
+  <span class="pill">在线 4 / 5</span>
+  <span class="meta">DEMO 静态预览页 · 更新于 16:45:00</span>
+</header>
+<main>
+  <section>
+    <h2>服务器列表</h2>
+    <table>
+      <thead><tr>
+        <th>状态</th><th>名称</th><th>系统</th><th>CPU</th><th>内存</th><th>磁盘</th>
+        <th>网络 ↓↑</th><th>负载</th><th>连接</th><th>进程</th><th>运行时长</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="dot"></span>在线</td>
+          <td><strong>tokyo-01 (东京)</strong><br><span style="color:var(--muted);font-size:11px">157.7.12.89</span></td>
+          <td>linux/amd64</td>
+          <td>12.5% <span class="bar"><i style="width:12.5%"></i></span></td>
+          <td>45% <span class="bar"><i style="width:45%"></i></span><br><span style="color:var(--muted);font-size:11px">3.6 GB / 8.0 GB</span></td>
+          <td><span style="font-size:12px">32% /<br>15% /data</span></td>
+          <td style="font-size:12px">1.2 MB/s<br>450 KB/s</td>
+          <td>0.15</td>
+          <td>142</td>
+          <td>186</td>
+          <td>45d 12h</td>
+        </tr>
+        <tr>
+          <td><span class="dot"></span>在线</td>
+          <td><strong>hongkong-01 (香港)</strong><br><span style="color:var(--muted);font-size:11px">43.22.18.102</span></td>
+          <td>linux/arm64</td>
+          <td>78.2% <span class="bar warn"><i style="width:78.2%"></i></span></td>
+          <td>88.0% <span class="bar crit"><i style="width:88.0%"></i></span><br><span style="color:var(--muted);font-size:11px">3.5 GB / 4.0 GB</span></td>
+          <td><span style="font-size:12px">68% /</span></td>
+          <td style="font-size:12px">8.5 MB/s<br>12.1 MB/s</td>
+          <td>2.45</td>
+          <td>520</td>
+          <td>310</td>
+          <td>12d 4h</td>
+        </tr>
+        <tr>
+          <td><span class="dot"></span>在线</td>
+          <td><strong>frankfurt-01 (法兰克福)</strong><br><span style="color:var(--muted);font-size:11px">185.12.4.99</span></td>
+          <td>linux/amd64</td>
+          <td>5.1% <span class="bar"><i style="width:5.1%"></i></span></td>
+          <td>22.4% <span class="bar"><i style="width:22.4%"></i></span><br><span style="color:var(--muted);font-size:11px">3.5 GB / 16.0 GB</span></td>
+          <td><span style="font-size:12px">18% /</span></td>
+          <td style="font-size:12px">120 KB/s<br>85 KB/s</td>
+          <td>0.08</td>
+          <td>38</td>
+          <td>112</td>
+          <td>120d 8h</td>
+        </tr>
+        <tr>
+          <td><span class="dot"></span>在线</td>
+          <td><strong>silicon-valley-01 (硅谷)</strong><br><span style="color:var(--muted);font-size:11px">192.241.1.55</span></td>
+          <td>linux/amd64</td>
+          <td>32.0% <span class="bar"><i style="width:32.0%"></i></span></td>
+          <td>54.1% <span class="bar"><i style="width:54.1%"></i></span><br><span style="color:var(--muted);font-size:11px">4.3 GB / 8.0 GB</span></td>
+          <td><span style="font-size:12px">42% /</span></td>
+          <td style="font-size:12px">2.1 MB/s<br>1.8 MB/s</td>
+          <td>0.85</td>
+          <td>210</td>
+          <td>205</td>
+          <td>89d 2h</td>
+        </tr>
+        <tr class="offline">
+          <td><span class="dot off"></span>离线</td>
+          <td><strong>singapore-01 (新加坡)</strong><br><span style="color:var(--muted);font-size:11px">128.1.5.20</span></td>
+          <td>linux/amd64</td>
+          <td>0.0% <span class="bar"><i style="width:0%"></i></span></td>
+          <td>0% <span class="bar"><i style="width:0%"></i></span><br><span style="color:var(--muted);font-size:11px">0 B / 0 B</span></td>
+          <td>—</td>
+          <td style="font-size:12px">0 B/s<br>0 B/s</td>
+          <td>0.00</td>
+          <td>0</td>
+          <td>0</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>节点互联延迟网格 <span class="pill">— 两两 TCP 探测延迟 (ms)</span></h2>
+    <div class="mesh-wrap">
+      <table class="mesh">
+        <thead>
+          <tr>
+            <th></th>
+            <th><div class="lbl">tokyo-01</div></th>
+            <th><div class="lbl">hongkong-01</div></th>
+            <th><div class="lbl">frankfurt-01</div></th>
+            <th><div class="lbl">silicon-valley-01</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><div class="lbl">tokyo-01</div></th>
+            <td><div class="cell self">—</div></td>
+            <td><div class="cell" style="background:#2a4a1a;color:#3fb950">38.2 ms</div></td>
+            <td><div class="cell" style="background:#4a2a1a;color:#e3b341">235.1 ms</div></td>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">124.5 ms</div></td>
+          </tr>
+          <tr>
+            <th><div class="lbl">hongkong-01</div></th>
+            <td><div class="cell" style="background:#2a4a1a;color:#3fb950">38.5 ms</div></td>
+            <td><div class="cell self">—</div></td>
+            <td><div class="cell" style="background:#4a2a1a;color:#e3b341">210.8 ms</div></td>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">168.0 ms</div></td>
+          </tr>
+          <tr>
+            <th><div class="lbl">frankfurt-01</div></th>
+            <td><div class="cell" style="background:#4a2a1a;color:#e3b341">234.8 ms</div></td>
+            <td><div class="cell" style="background:#4a2a1a;color:#e3b341">211.2 ms</div></td>
+            <td><div class="cell self">—</div></td>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">108.4 ms</div></td>
+          </tr>
+          <tr>
+            <th><div class="lbl">silicon-valley-01</div></th>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">124.8 ms</div></td>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">167.5 ms</div></td>
+            <td><div class="cell" style="background:#4a3a1a;color:#d29922">108.9 ms</div></td>
+            <td><div class="cell self">—</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<footer>Larry 探针 · 开源服务器监控</footer>
+</body>
+</html>
