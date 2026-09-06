@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Build & test (go ${{ matrix.go }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ['1.23']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: gofmt check
+        run: |
+          gofmt -l . | grep -q . && { echo "files need formatting:"; gofmt -l .; exit 1; } || echo "format ok"
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test (with race)
+        run: go test -race ./...
