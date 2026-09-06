@@ -24,10 +24,10 @@
 
 ## 📸 界面预览
 
-> ▶ 想在浏览器直接看效果：`git clone … && make && ./bin/larry-server`（默认 `:80`），然后打开 `http://localhost/` —— 起一个 agent 连上后就会出现实时数据。
-> 暂时不想起 agent：可直接用浏览器打开 repo 根目录的 [`demo.html`](demo.html)（同名「界面预览 Demo」的独立静态预览页）。
+![Larry 探针仪表盘](docs/screenshot.png)
 
-> 📷 本处欢迎提交真实运行截图 —— 截图后放一张到 `docs/screenshot.png` 或贴在 issue，即可让更多人在没装起来前先看到界面长什么样。
+> 上图由仓库根目录的 [`demo.html`](demo.html)（独立静态预览页）渲染而来；
+> 实际部署后，Web 大盘会展示同样的深色主题、服务器列表与节点互通延迟矩阵（数据为实时 WebSocket 推送）。
 
 ---
 
